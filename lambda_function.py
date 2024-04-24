@@ -17,8 +17,8 @@ s3_client = boto3.client('s3')
     
 def lambda_handler(event, context):
     # Download image from S3
-    bucket_name = event['bucket_name']
-    object_key = event['preprocessed_objectkey']
+    bucket_name = event['Payload']['bucket_name']
+    object_key = event['Payload']['preprocessed_objectkey']
     file_obj = s3_client.get_object(Bucket=bucket_name, Key=object_key)
     payload = file_obj['Body'].read()
     
