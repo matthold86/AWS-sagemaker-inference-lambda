@@ -16,12 +16,13 @@ logger.addHandler(stream_handler)
 s3_client = boto3.client('s3')
     
 def lambda_handler(event, context):
-    # Download preprocessed image from S3
+    # Extract Input data
     bucket_name = event['Payload']['bucket_name']
     object_key = event['Payload']['preprocessed_objectkey']
     raw_objectkey = event['Payload']['raw_objectkey']
     image_id = event['Payload']['image_id']
 
+    # Download Image from S3
     file_obj = s3_client.get_object(Bucket=bucket_name, Key=object_key)
     payload = file_obj['Body'].read()
     
